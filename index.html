@@ -1,0 +1,441 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tony - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-color);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 999;
+            transition: all 0.3s ease;
+            background: rgba(44, 62, 80, 0.9);
+        }
+
+        .navbar.sticky {
+            padding: 15px 0;
+            background: var(--primary-color);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .navbar img {
+            height: 90px;
+            max-width: 150px;
+            object-fit: contain;
+           
+        }
+
+        .menu-list {
+            display: flex;
+            list-style: none;
+        }
+
+        .menu-list li {
+            margin-left: 30px;
+        }
+
+        .menu-list li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        /* Home Section */
+        .home {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home::before {
+            content: "";
+            position: absolute;
+            height: 400px;
+            width: 400px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            animation: float 4s infinite;
+        }
+
+        .home .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: white;
+            z-index: 1;
+        }
+
+        .home .content h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .home .content p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 50px;
+            color: var(--dark-color);
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 100px 20px;
+            background: #f9f9f9;
+        }
+
+        .project-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .project-img {
+            height: 500px;
+            background: #ddd;
+            overflow: hidden;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 20px;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -55%) scale(1.05); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-list {
+                display: block;
+            }
+
+            .home .content h1 {
+                font-size: 40px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"> <a href="X"> <img src="tony02.png" alt="logo"></a></div>
+            <ul class="menu-list">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="home" id="home">
+        <div class="content">
+            <h1>Hi, I'm Tony</h1>
+            <p>Web Developer & Digital Marketing Specialist</p>
+            <a href="#projects" class="cta-btn">View My Work</a>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>I build amazing web experiences</h3>
+                <p> I am a passionate and results-driven <strong>Full-Stack Web Developer</strong> with expertise in designing, 
+                    developing, and deploying scalable web applications. With a strong foundation in both 
+                    <strong>front-end and back-end technologies</strong>, I create dynamic, responsive, and user-friendly 
+                    digital experiences. My focus is on writing clean, efficient, and maintainable code while following 
+                    best industry practices.
+                </p>
+            </div>
+        
+            <div class="section">
+                <p><h2>Technical Skills</h2></p>
+        
+                <h3>Front-End Development:</h3>
+                <ul>
+                   </p> <li><strong>Languages:</strong> HTML5, CSS3, JavaScript (ES6+)</li>
+                    <li><strong>Frameworks & Libraries:</strong> React.js, Next.js, Vue.js</li>
+                    <li><strong>Styling & UI:</strong> Tailwind CSS, Bootstrap, Material UI, SASS/SCSS</li>
+                    
+                </ul>
+        
+                <h3>Back-End Development:</h3>
+                <ul>
+                    <li><strong>Languages & Frameworks:</strong> Node.js, Express.js, NestJS</li>
+                    <li><strong>Databases:</strong> MongoDB, PostgreSQL, MySQL, Firebase</li>
+                   
+                </ul>
+        
+               
+                <ul>
+                    <li>Problem-Solving & Debugging</li>
+                    <li>Agile & Scrum Methodologies</li>
+                    <li>Effective Communication & Team Collaboration</li>
+                    <li>Continuous Learning & Adaptability</li>
+                </ul>
+            </div>.</p>
+            </div>
+            <div class="skills">
+                <div class="skill-item">
+                    <i class="fab fa-html5"></i>
+                    <h4>HTML5</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-css3-alt"></i>
+                    <h4>CSS3</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-js"></i>
+                    <h4>JavaScript</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-js"></i>
+                    <h4>React</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-js"></i>
+                    <h4>Node js</h4>
+                </div>
+                <div class="skill-item">
+                    <i class="fab fa-js"></i>
+                    <h4>MySQL</h4>
+                </div>
+            
+                <!-- Add more skills as needed -->
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <h2 class="section-title">My Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="img/ethical.png" alt="Project 1">
+                </div>
+                <div class="project-info">
+                    <h3>A Leadership Training Center</h3>
+                    <p>https://cd18049431.github.io/ethical-servant-leasership-center/</p>
+                </div>
+            </div>
+            <!-- Add more project cards -->
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contact Me</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <input type="text" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="your email" required>
+            </div>
+            <div class="form-group">
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+            </div>
+<a href="mailto:ekangpolese@gmail.com"class="cta-btn">Send Message</a></button>
+        </form>
+    </section>
+
+    <script>
+        // Sticky Navigation
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('sticky', window.scrollY > 0);
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form Submission
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Thank you for your message! I will get back to you soon.');
+        });
+
+        // Reveal Animations
+        window.addEventListener('scroll', reveal);
+
+        function reveal() {
+            const reveals = document.querySelectorAll('.section-title, .project-card, .skill-item');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Initialize reveal
+        reveal();
+    </script>
+</body>
+</html>
